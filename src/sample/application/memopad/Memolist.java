@@ -4,11 +4,17 @@ import android.app.ListActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.content.Intent;
-
+import android.view.MenuInflater;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 
 
@@ -19,7 +25,7 @@ public class Memolist extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onListItemClick(l, v, position, id);
 		memos=new MemoDBHelper(this);
 		SQLiteDatabase db=memos.getWritableDatabase();
@@ -37,13 +43,14 @@ public class Memolist extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.memolist);
 		this.showMemos(getMemos());
 		
 		ListView lv = (ListView) this.findViewById(android.R.id.list);
 		this.registerForContextMenu(lv);  
+	
 	}
 
 	private Cursor getMemos() {
@@ -69,6 +76,49 @@ public class Memolist extends ListActivity {
 		this.memos.close();
 		
 	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸãƒ¡ã‚½ãƒƒãƒ‰ãƒ»ã‚¹ã‚¿ãƒ–
+		AdapterContextMenuInfo info =
+				(AdapterContextMenuInfo) item.getMenuInfo();
+		Cursor cursor=getMemos();
+		startManagingCursor(cursor);
+		cursor.moveToPosition(info.position);
+		final int columnid=cursor.getInt(2);
+		
+		AlertDialog.Builder ab=new AlertDialog.Builder(this);
+		ab.setTitle(R.string.memodb_delete);
+		ab.setMessage(R.string.memodb_confirm_delete);
+		ab.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				SQLiteDatabase db=memos.getWritableDatabase();
+				db.delete("memoDB", "_id="+columnid, null);
+				db.close();
+				showMemos(getMemos());
+				
+			}
+		});
+		ab.setNegativeButton(R.string.button_cancel,
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which){
+				
+			}
+		});
+		ab.show();
+		
+		return super.onContextItemSelected(item);
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸãƒ¡ã‚½ãƒƒãƒ‰ãƒ»ã‚¹ã‚¿ãƒ–
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater mi=getMenuInflater();
+		mi.inflate(R.menu.contextmenu, menu);
+		}
 
 		
 	}

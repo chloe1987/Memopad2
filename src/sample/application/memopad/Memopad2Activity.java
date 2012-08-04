@@ -32,20 +32,20 @@ public class Memopad2Activity extends Activity {
 		et.setSelection(pref.getInt("cursor", 0));
 		TextWatcher tw=new TextWatcher(){
 
-			@Override
+		
 			public void afterTextChanged(Editable s) {
 	
 				
 			}
 
-			@Override
+		
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 		
 				
 			}
 
-			@Override
+			
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				memoChanged=true;
@@ -98,7 +98,7 @@ public class Memopad2Activity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode==RESULT_OK){
 			EditText et=(EditText) findViewById(R.id.editText1);
@@ -114,7 +114,7 @@ public class Memopad2Activity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		MenuInflater mi= this.getMenuInflater();
 		mi.inflate(R.menu.menu, menu);
 		return super.onCreateOptionsMenu(menu);
@@ -122,7 +122,7 @@ public class Memopad2Activity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		EditText et=(EditText) findViewById(R.id.editText1);
 		switch(item.getItemId()){
 		case R.id.menu_save:
